@@ -1,9 +1,40 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Diccionario de Servicios Web</title>
+    <link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+
+    <div class="contenedor">
+
+        <h1 class="titulo">Diccionario RA1</h1>
+
+        <div class="buscador">
+            <input type="text" id="busqueda" placeholder="Escribe REST, SOAP, HTTP...">
+            <button onclick="buscar()">Buscar</button>
+        </div>
+
+        <div class="sugerencias">
+            <h3>Palabras sugeridas:</h3>
+            <span onclick="sugerir('rest')">REST</span>
+            <span onclick="sugerir('soap')">SOAP</span>
+            <span onclick="sugerir('http')">HTTP</span>
+            <span onclick="sugerir('json')">JSON</span>
+            <span onclick="sugerir('xml')">XML</span>
+        </div>
+
+        <div id="resultado" class="resultado"></div>
+
+    </div>
+
 <script>
 
 const definiciones = {
     rest: {
         origen: "Del inglés Representational State Transfer.",
-        significado: "Estilo de arquitectura para servicios web que utiliza HTTP para operaciones como GET, POST, PUT y DELETE.",
+        significado: "Estilo de arquitectura para servicios web que utiliza HTTP para realizar operaciones como GET, POST, PUT y DELETE.",
         sinonimos: "API REST, servicio web RESTful."
     },
     soap: {
@@ -18,7 +49,7 @@ const definiciones = {
     },
     xml: {
         origen: "Sigla de eXtensible Markup Language.",
-        significado: "Lenguaje de marcado utilizado para almacenar y transportar datos estructurados.",
+        significado: "Lenguaje de marcado que se utiliza para almacenar y transportar datos de manera estructurada.",
         sinonimos: "Lenguaje XML."
     },
     json: {
@@ -28,66 +59,28 @@ const definiciones = {
     }
 };
 
-const input = document.getElementById("busqueda");
-const resultado = document.getElementById("resultado");
-
-// Buscar con botón o Enter
-input.addEventListener("keypress", function(e) {
-    if (e.key === "Enter") {
-        buscar();
-    }
-});
-
 function buscar() {
-    let palabra = input.value.trim().toLowerCase();
-
-    if (!palabra) {
-        resultado.innerHTML = "<p class='error'>Escribe una palabra.</p>";
-        return;
-    }
+    let palabra = document.getElementById("busqueda").value.trim().toLowerCase();
+    let resultado = document.getElementById("resultado");
 
     if (definiciones[palabra]) {
-        mostrarResultado(palabra);
-    } else {
-        buscarParcial(palabra);
-    }
-}
-
-function buscarParcial(texto) {
-    let coincidencias = Object.keys(definiciones)
-        .filter(p => p.includes(texto));
-
-    if (coincidencias.length > 0) {
         resultado.innerHTML = `
-            <p>No se encontró exacto. ¿Quisiste decir?</p>
-            ${coincidencias.map(p => 
-                `<button onclick="mostrarResultado('${p}')">${p.toUpperCase()}</button>`
-            ).join(" ")}
+            <h2>${palabra.toUpperCase()}</h2>
+            <p><strong>Origen:</strong> ${definiciones[palabra].origen}</p>
+            <p><strong>Significado:</strong> ${definiciones[palabra].significado}</p>
+            <p><strong>Sinónimos:</strong> ${definiciones[palabra].sinonimos}</p>
         `;
     } else {
-        resultado.innerHTML = "<p class='error'>Palabra no encontrada.</p>";
+        resultado.innerHTML = "<p class='error'>Palabra no encontrada en el diccionario.</p>";
     }
-}
-
-function mostrarResultado(palabra) {
-    const data = definiciones[palabra];
-
-    resultado.innerHTML = `
-        <h2 class="palabra">${palabra.toUpperCase()}</h2>
-        <p><strong>Origen:</strong> ${data.origen}</p>
-        <p><strong>Significado:</strong> ${data.significado}</p>
-        <p><strong>Sinónimos:</strong> ${data.sinonimos}</p>
-    `;
 }
 
 function sugerir(palabra) {
-    input.value = palabra;
+    document.getElementById("busqueda").value = palabra;
     buscar();
 }
 
-function limpiar() {
-    input.value = "";
-    resultado.innerHTML = "";
-}
-
 </script>
+
+</body>
+</html>
