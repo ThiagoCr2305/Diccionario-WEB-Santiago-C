@@ -1,12 +1,10 @@
-/* Reset básico */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: Arial, sans-serif;
 }
 
-/* Fondo general */
 body {
     height: 100vh;
     background: linear-gradient(135deg, #1e3c72, #2a5298);
@@ -15,44 +13,34 @@ body {
     align-items: center;
 }
 
-/* Contenedor principal */
 .contenedor {
     background: white;
-    width: 420px;
+    width: 450px;
     padding: 30px;
     border-radius: 15px;
-    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
-    text-align: center;
-    transition: 0.3s ease;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.3);
 }
 
-.contenedor:hover {
-    transform: translateY(-5px);
-}
-
-/* Título */
 .titulo {
+    text-align: center;
     margin-bottom: 20px;
     color: #1e3c72;
-    font-size: 26px;
 }
 
-/* Input */
+.buscador {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
 #busqueda {
-    width: 70%;
+    flex: 1;
     padding: 10px;
     border: 2px solid #2a5298;
     border-radius: 8px;
     outline: none;
-    transition: 0.3s;
 }
 
-#busqueda:focus {
-    border-color: #1e3c72;
-    box-shadow: 0 0 8px rgba(30, 60, 114, 0.5);
-}
-
-/* Botón */
 button {
     padding: 10px 15px;
     border: none;
@@ -65,17 +53,15 @@ button {
 
 button:hover {
     background: #1e3c72;
-    transform: scale(1.05);
 }
 
-/* Sugerencias */
 .sugerencias {
-    margin-top: 20px;
+    margin-bottom: 20px;
 }
 
 .sugerencias span {
     display: inline-block;
-    margin: 5px;
+    margin: 5px 5px 0 0;
     padding: 5px 10px;
     background: #e3eafc;
     border-radius: 15px;
@@ -87,12 +73,6 @@ button:hover {
 .sugerencias span:hover {
     background: #2a5298;
     color: white;
-}
-
-/* Resultado */
-.resultado {
-    margin-top: 20px;
-    text-align: left;
 }
 
 .resultado h2 {
